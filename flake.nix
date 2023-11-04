@@ -15,6 +15,8 @@
   inputs.nix-index-database.url = "github:Mic92/nix-index-database";
   inputs.nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
+  inputs.nix-colors.url = "github:misterio77/nix-colors";
+
   outputs = inputs:
     with inputs; let
       secrets = builtins.fromJSON (builtins.readFile "${self}/secrets.json");
@@ -75,9 +77,9 @@
     in {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
-      nixosConfigurations.nixos = mkNixosConfiguration {
-        hostname = "nixos";
-        username = "snikt"; # FIXME: replace with your own username!
+      nixosConfigurations.NicksOS = mkNixosConfiguration {
+        hostname = "NicksOS";
+        username = "snikt";
         modules = [
           nixos-wsl.nixosModules.wsl
           ./wsl.nix
