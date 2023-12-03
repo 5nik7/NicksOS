@@ -204,7 +204,7 @@ in {
   '';
   home.file.".config/nvim/lua/config/options.lua".text = ''
     local opt = vim.opt
-    
+
     opt.guicursor = {
       "a:block",
       "n:Cursor",
@@ -213,15 +213,10 @@ in {
       "i-ci-sm:ver30-iCursor",
       "r-cr:hor20-rCursor",
       "a:blinkon0",
-    } 
+    }
   '';
-  home.file.".config/nvim/lua/plugins/nicks.lua".text = ''
-    return {      
-      {
-        "folke/tokyonight.nvim",
-        lazy = true,
-        opts = { style = "moon" },
-      },
+  home.file.".config/nvim/lua/plugins/init.lua".text = ''
+    return {
       {
         "catppuccin/nvim",
         lazy = false,
@@ -328,12 +323,10 @@ in {
           -- stylua: ignore
           center = {
             { action = "Telescope find_files",                                     desc = " Find file",       icon = " ", key = "f" },
-            { action = "ene | startinsert",                                        desc = " New file",        icon = " ", key = "n" },
             { action = "Telescope oldfiles",                                       desc = " Recent files",    icon = " ", key = "r" },
             { action = "Telescope live_grep",                                      desc = " Find text",       icon = " ", key = "g" },
             { action = [[lua require("lazyvim.util").telescope.config_files()()]], desc = " Config",          icon = " ", key = "c" },
             { action = 'lua require("persistence").load()',                        desc = " Restore Session", icon = " ", key = "s" },
-            { action = "LazyExtras",                                               desc = " Lazy Extras",     icon = " ", key = "x" },
             { action = "Lazy",                                                     desc = " Lazy",            icon = "󰒲 ", key = "l" },
             { action = "qa",                                                       desc = " Quit",            icon = " ", key = "q" },
           },
@@ -362,78 +355,6 @@ in {
       end
 
       return opts
-    end,
-  },
-  { "goolord/alpha-nvim", enabled = false },
-  { "nvimdev/dashboard-nvim", enabled = false },
-
-  -- enable mini.starter
-  {
-    "echasnovski/mini.starter",
-    version = false, -- wait till new 0.7.0 release to put it back on semver
-    event = "VimEnter",
-    opts = function()
-      local logo = [[
-   ╔══╗╔══╗╔═════╗╔══════██╗   ██╗██╗██╗╔═══╗╔═══╗
-   ║  \║  ║║  ╔══╝║  ╔═╗ ██║   ██║██║██║║   \/   ║
-   ║   \  ║║  ╚══╗║  ║ ║ ██║   ██║██║██║║  \  /  ║
-   ║  \   ║║  ╔══╝║  ║ ║ ╚██╗ ██╔╝██║██║║  ║\/║  ║
-   ║  ║\  ║║  ╚══╗║  ╚═╝  ║████╔╝ ██║██║║  ║  ║  ║
-   ╚══╝╚══╝╚═════╝╚═══════╝╚═══╝  ╚═╝╚═╝╚══╝  ╚══╝
-]]
-      local pad = string.rep(" ", 20)
-      local new_section = function(name, action, section)
-        return { name = name, action = action, section = pad .. section }
-      end
-
-      local starter = require("mini.starter")
-      --stylua: ignore
-      local config = {
-        evaluate_single = true,
-        header = logo,
-        items = {
-          new_section("Find file",       "Telescope find_files",                                   "Telescope"),
-          new_section("Recent files",    "Telescope oldfiles",                                     "Telescope"),
-          new_section("Grep text",       "Telescope live_grep",                                    "Telescope"),
-          new_section("Config",          "lua require('lazyvim.util').telescope.config_files()()", "Config"),
-          new_section("Extras",          "LazyExtras",                                             "Config"),
-          new_section("Lazy",            "Lazy",                                                   "Config"),
-          new_section("New file",        "ene | startinsert",                                      "Built-in"),
-          new_section("Quit",            "qa",                                                     "Built-in"),
-          new_section("Session restore", [[lua require("persistence").load()]],                    "Session"),
-        },
-        content_hooks = {
-          starter.gen_hook.adding_bullet(pad .. "░ ", false),
-          starter.gen_hook.aligning("center", "center"),
-        },
-      }
-      return config
-    end,
-    config = function(_, config)
-      -- close Lazy and re-open when starter is ready
-      if vim.o.filetype == "lazy" then
-        vim.cmd.close()
-        vim.api.nvim_create_autocmd("User", {
-          pattern = "MiniStarterOpened",
-          callback = function()
-            require("lazy").show()
-          end,
-        })
-      end
-
-      local starter = require("mini.starter")
-      starter.setup(config)
-
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "LazyVimStarted",
-        callback = function()
-          local stats = require("lazy").stats()
-          local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-          local pad_footer = string.rep(" ", 8)
-          starter.config.footer = pad_footer .. "⚡ Neovim loaded " .. stats.count .. " plugins in " .. ms .. "ms"
-          pcall(starter.refresh)
-        end,
-      })
     end,
   },
   {
@@ -466,7 +387,7 @@ in {
     nix-index.enable = true;
     nix-index.enableZshIntegration = true;
     nix-index-database.comma.enable = true;
-    
+
     bat = {
       enable = true;
       config = {
