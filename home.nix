@@ -40,6 +40,7 @@
     waybar
     swww
     tealdeer
+    lazygit
     (nerdfonts.override { fonts = [ "JetBrainsMono" "Hack" "FiraCode" "DroidSansMono" "FiraMono" ]; })
   ];
 
@@ -172,7 +173,7 @@ in {
         -- { import = "lazyvim.plugins.extras.lang.json" },
         -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
         -- import/override with your plugins
-        { import = "plugins" },
+        -- { import = "plugins" },
     },
     defaults = {
         -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
@@ -214,172 +215,6 @@ in {
       "r-cr:hor20-rCursor",
       "a:blinkon0",
     }
-  '';
-  home.file.".config/nvim/lua/plugins/init.lua".text = ''
-    return {
-      {
-        "catppuccin/nvim",
-        lazy = false,
-        name = "catppuccin",
-        priority = 1000,
-        opts = {
-          flavour = "mocha",
-          transparent_background = true,
-          term_colors = true,
-          styles = {
-            comments = { "italic" },
-            conditionals = { "italic" },
-            loops = {},
-            functions = {},
-            keywords = {},
-            strings = {},
-            variables = {},
-            numbers = {},
-            booleans = {},
-            properties = {},
-            types = {},
-            operators = {},
-          },
-          dim_inactive = {
-            enabled = false,
-            shade = "dark",
-            percentage = 0.50,
-          },
-          integrations = {
-            alpha = true,
-            cmp = true,
-            gitsigns = true,
-            illuminate = true,
-            indent_blankline = { enabled = true },
-            lsp_trouble = true,
-            mini = {
-              enabled = true,
-              indentscope_color = "overlay0",
-            },
-            native_lsp = {
-              enabled = true,
-              virtual_text = {
-                errors = { "italic" },
-                hints = { "italic" },
-                warnings = { "italic" },
-                information = { "italic" },
-              },
-              underlines = {
-                errors = { "undercurl" },
-                hints = { "undercurl" },
-                warnings = { "undercurl" },
-                information = { "undercurl" },
-              },
-            },
-            navic = { enabled = true, custom_bg = "lualine" },
-            neotest = true,
-            noice = true,
-            notify = true,
-            nvimtree = true,
-            semantic_tokens = true,
-            telescope = true,
-            treesitter = true,
-            which_key = true,
-          },
-        },
-      },
-      {
-        "LazyVim/LazyVim",
-        opts = {
-          colorscheme = "catppuccin",
-        },
-      },
-      {
-    "rcarriga/nvim-notify",
-    opts = {
-      background_colour = "#181825",
-    },
-  },
-
-  {
-    "nvimdev/dashboard-nvim",
-    event = "VimEnter",
-    opts = function()
-      local logo = [[
-╔══╗╔══╗╔═════╗╔══════██╗   ██╗██╗██╗╔═══╗╔═══╗
-║  \║  ║║  ╔══╝║  ╔═╗ ██║   ██║██║██║║   \/   ║
-║   \  ║║  ╚══╗║  ║ ║ ██║   ██║██║██║║  \  /  ║
-║  \   ║║  ╔══╝║  ║ ║ ╚██╗ ██╔╝██║██║║  ║\/║  ║
-║  ║\  ║║  ╚══╗║  ╚═╝  ║████╔╝ ██║██║║  ║  ║  ║
-╚══╝╚══╝╚═════╝╚═══════╝╚═══╝  ╚═╝╚═╝╚══╝  ╚══╝
-      ]]
-
-      logo = string.rep("\n", 8) .. logo .. "\n\n"
-
-      local opts = {
-        theme = "doom",
-        hide = {
-          -- this is taken care of by lualine
-          -- enabling this messes up the actual laststatus setting after loading a file
-          statusline = false,
-        },
-        config = {
-          header = vim.split(logo, "\n"),
-          -- stylua: ignore
-          center = {
-            { action = "Telescope find_files",                                     desc = " Find file",       icon = " ", key = "f" },
-            { action = "Telescope oldfiles",                                       desc = " Recent files",    icon = " ", key = "r" },
-            { action = "Telescope live_grep",                                      desc = " Find text",       icon = " ", key = "g" },
-            { action = [[lua require("lazyvim.util").telescope.config_files()()]], desc = " Config",          icon = " ", key = "c" },
-            { action = 'lua require("persistence").load()',                        desc = " Restore Session", icon = " ", key = "s" },
-            { action = "Lazy",                                                     desc = " Lazy",            icon = "󰒲 ", key = "l" },
-            { action = "qa",                                                       desc = " Quit",            icon = " ", key = "q" },
-          },
-          footer = function()
-            local stats = require("lazy").stats()
-            local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-            return { "⚡ Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms" }
-          end,
-        },
-      }
-
-      for _, button in ipairs(opts.config.center) do
-        button.desc = button.desc .. string.rep(" ", 43 - #button.desc)
-        button.key_format = "  %s"
-      end
-
-      -- close Lazy and re-open when the dashboard is ready
-      if vim.o.filetype == "lazy" then
-        vim.cmd.close()
-        vim.api.nvim_create_autocmd("User", {
-          pattern = "DashboardLoaded",
-          callback = function()
-            require("lazy").show()
-          end,
-        })
-      end
-
-      return opts
-    end,
-  },
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    opts = {
-      sources = { "filesystem", "buffers", "git_status", "document_symbols" },
-      open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "Outline" },
-      filesystem = {
-        follow_current_file = { enabled = true },
-        visible = true,
-        hide_dotfiles = false,
-        hide_gitignored = false,
-        hide_hidden = false,
-      },
-    },
-  },
-  {
-  "norcalli/nvim-colorizer.lua",
-  event = "VeryLazy",
-  config = function()
-    require("colorizer").setup()
-  end,
-  opts = {},
-},
-}
   '';
 
   programs = {
@@ -527,6 +362,7 @@ in {
 
       envExtra = ''
         export PATH=$PATH:$HOME/.local/bin
+        export PATH=$PATH:/mnt/c/vscode/bin
       '';
 
       initExtra = ''
