@@ -102,7 +102,7 @@ in {
     nix-index-database.hmModules.nix-index
   ];
 
-  home.stateVersion = "23.05";
+  home.stateVersion = "22.11";
 
   home = {
     username = "${username}";
