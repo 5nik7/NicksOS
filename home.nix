@@ -7,6 +7,7 @@
   ...
 }: let
   unstable-packages = with pkgs.unstable; [
+    tldr
     bottom
     coreutils
     curl
