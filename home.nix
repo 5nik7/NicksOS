@@ -216,7 +216,7 @@ in {
       autocd = true;
       enableAutosuggestions = true;
       enableCompletion = true;
-      defaultKeymap = "emacs";
+      defaultKeymap = "vicmd";
       history.size = 10000;
       history.save = 10000;
       history.expireDuplicatesFirst = true;
@@ -242,19 +242,26 @@ in {
       ];
 
       shellAliases = {
-        "..." = "./..";
-        "...." = "././..";
+      	".." = "cd ..";
+	"..." = "cd ../..";
+	"...." = "cd ../../..";
+	"....." = "cd ../../../..";
+	"......" = "cd ../../../../..";
+	"......." = "cd ../../../../../..";
+	"........" = "cd ../../../../../../..";
         cd = "z";
         gc = "nix-collect-garbage --delete-old";
         refresh = "source ${config.home.homeDirectory}/.zshrc";
         rebuild = "sudo nixos-rebuild switch --flake ~/configuration";
         show_path = "echo $PATH | tr ':' '\n'";
-	      l = "eza -la --icons --hyperlink --git";
-	      c = "clear";
-	      d = "ranger";
-	      q = "exit";
-	      v = "nvim";
-	      path = "echo $PATH | tr ':' '\n'";
+	l = "eza -lA --git --git-repos --icons  --group-directories-first --no-quotes --no-permissions --no-filesize --no-user --no-time";
+	ll = "eza -lA --git --git-repos --icons --group-directories-first --no-quotes";
+	c = "clear";
+	d = "ranger";
+	q = "exit";
+	v = "nvim";
+	sv = "sudo nvim";
+	path = "echo $PATH | tr ':' '\n'";
 
         gapa = "git add --patch";
         grpa = "git reset --patch";
