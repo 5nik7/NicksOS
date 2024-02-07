@@ -141,7 +141,7 @@ in {
       aws.disabled = true;
       gcloud.disabled = true;
       kubernetes.disabled = false;
-      git_branch.symbol = " ";
+      git_branch.symbol = "";
       git_branch.format = "[$symbol $branch]($style) ";
       git_branch.style = "yellow";
       directory.format = "[$path]($style) ";
