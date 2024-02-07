@@ -7,6 +7,8 @@
   inputs.home-manager.url = "github:nix-community/home-manager/release-23.05";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+  inputs.neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
   inputs.nur.url = "github:nix-community/NUR";
 
   inputs.nixos-wsl.url = "github:nix-community/NixOS-WSL";
@@ -30,6 +32,7 @@
           ];
         };
         overlays = [
+          neovim-nightly-overlay.overlay
           nur.overlay
           (_final: prev: {
             # this allows us to reference pkgs.unstable

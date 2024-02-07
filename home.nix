@@ -20,7 +20,6 @@
     jq
     killall
     mosh
-    neovim
     procs
     ripgrep
     sd
@@ -36,6 +35,13 @@
     nix-zsh-completions
     zsh-fzf-tab
     sway
+    pywal
+    swayest-workstyle
+    autotiling-rs
+    flashfocus
+    rofi-wayland
+    xfce.thunar
+    firefox
     xwayland
     waybar
     kitty
@@ -116,6 +122,7 @@ in {
     ++ unstable-packages
     ++
     [
+      pkgs.neovim-nightly
       # pkgs.some-package
       # pkgs.unstable.some-other-package
     ];
@@ -125,6 +132,7 @@ in {
     nix-index.enable = true;
     nix-index.enableZshIntegration = true;
     nix-index-database.comma.enable = true;
+    
     
     starship.enable = true;
     starship.settings = {
