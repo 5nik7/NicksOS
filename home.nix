@@ -38,7 +38,8 @@
     sway
     xwayland
     waybar
-    swww
+    kitty
+    swaybg
     tealdeer
     lazygit
     (nerdfonts.override { fonts = [ "JetBrainsMono" "Hack" "FiraCode" "DroidSansMono" "FiraMono" ]; })
@@ -100,7 +101,7 @@ in {
     nix-index-database.hmModules.nix-index
   ];
 
-  home.stateVersion = "22.11";
+  home.stateVersion = "23.05";
 
   home = {
     username = "${username}";
@@ -124,16 +125,7 @@ in {
     nix-index.enable = true;
     nix-index.enableZshIntegration = true;
     nix-index-database.comma.enable = true;
-
-    bat = {
-      enable = true;
-      config = {
-        paging = "never";
-        style = "plain";
-        theme = "base16";
-      };
-    };
-
+    
     starship.enable = true;
     starship.settings = {
       add_newline = false;
@@ -163,6 +155,15 @@ in {
       character.vimcmd_visual_symbol = "[:](pink)";
       character.vimcmd_replace_symbol = "[:](orange)";
       character.format = "$symbol ";
+    };
+
+    bat = {
+      enable = true;
+      config = {
+        paging = "never";
+        style = "plain";
+        theme = "base16";
+      };
     };
 
     fzf.enable = true;
@@ -216,7 +217,7 @@ in {
       autocd = true;
       enableAutosuggestions = true;
       enableCompletion = true;
-      defaultKeymap = "vicmd";
+      defaultKeymap = "viins";
       history.size = 10000;
       history.save = 10000;
       history.expireDuplicatesFirst = true;
