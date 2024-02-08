@@ -34,6 +34,7 @@
     neofetch
     nix-zsh-completions
     zsh-fzf-tab
+    nwg-look
     sway
     pywal
     swayest-workstyle
@@ -49,6 +50,12 @@
     tealdeer
     lazygit
     (nerdfonts.override { fonts = [ "JetBrainsMono" "Hack" "FiraCode" "DroidSansMono" "FiraMono" ]; })
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    material-design-icons
+    material-icons
+    font-awesome
   ];
 
   stable-packages = with pkgs; [
