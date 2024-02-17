@@ -49,6 +49,8 @@
     swaybg
     tealdeer
     lazygit
+    wttrbar
+    yazi
     (nerdfonts.override { fonts = [ "JetBrainsMono" "Hack" "FiraCode" "DroidSansMono" "FiraMono" ]; })
     noto-fonts
     noto-fonts-cjk
@@ -139,8 +141,8 @@ in {
     nix-index.enable = true;
     nix-index.enableZshIntegration = true;
     nix-index-database.comma.enable = true;
-    
-    
+
+
     starship.enable = true;
     starship.settings = {
       add_newline = false;
