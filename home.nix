@@ -51,6 +51,8 @@
     lazygit
     wttrbar
     yazi
+    nurl
+    nix-init
     (nerdfonts.override { fonts = [ "JetBrainsMono" "Hack" "FiraCode" "DroidSansMono" "FiraMono" ]; })
     noto-fonts
     noto-fonts-cjk
@@ -160,17 +162,17 @@ in {
       python.disabled = true;
       ruby.disabled = true;
       username.format = "[$user]($style)";
-      username.style_user = "cyan";
-      username.style_root = "green";
+      username.style_user = "purple";
+      username.style_root = "purple";
       username.show_always = true;
       hostname.format = "[@$hostname]($style) ";
       hostname.ssh_only = false;
-      hostname.style = "cyan";
-      character.success_symbol = "[](green)";
-      character.error_symbol = "[](red)";
-      character.vimcmd_symbol = "[:](blue)";
-      character.vimcmd_visual_symbol = "[:](pink)";
-      character.vimcmd_replace_symbol = "[:](orange)";
+      hostname.style = "purple";
+      character.success_symbol = "[](cyan)";
+      character.error_symbol = "[](cyan)";
+      character.vimcmd_symbol = "[](blue)";
+      character.vimcmd_visual_symbol = "[](pink)";
+      character.vimcmd_replace_symbol = "[](orange)";
       character.format = "$symbol ";
     };
 
