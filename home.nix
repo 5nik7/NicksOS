@@ -383,10 +383,10 @@ in {
         function ya() {
           local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
           yazi "$@" --cwd-file="$tmp"
-          if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-            cd -- "$cwd"
+          if cwd="$(cat "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+            cd "$cwd"
           fi
-          rm -f -- "$tmp"
+          rm -f "$tmp"
         }
         alias d='ya'
 
