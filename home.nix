@@ -17,6 +17,7 @@
     git
     git-crypt
     htop
+    btop
     jq
     killall
     mosh
@@ -277,7 +278,6 @@ in {
         l = "eza -lA --git --git-repos --icons  --group-directories-first --no-quotes --no-permissions --no-filesize --no-user --no-time";
         ll = "eza -lA --git --git-repos --icons --group-directories-first --no-quotes";
         c = "clear";
-        d = "ranger";
         q = "exit";
         v = "nvim";
         sv = "sudo nvim";
@@ -296,7 +296,7 @@ in {
         gcd = "git checkout develop";
 
         pbcopy = "/mnt/c/Windows/System32/clip.exe";
-        pbpaste = "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -command 'Get-Clipboard'";
+        pbpaste = "/mnt/c/bin/pwsh/pwsh.exe -command 'Get-Clipboard'";
         explorer = "/mnt/c/Windows/explorer.exe";
       };
 
@@ -380,10 +380,22 @@ in {
           fi
         }
 
+        function ya() {
+          local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
+          yazi "$@" --cwd-file="$tmp"
+          if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+            cd -- "$cwd"
+          fi
+          rm -f -- "$tmp"
+        }
+        alias d='ya'
+
         WORDCHARS='*?[]~=&;!#$%^(){}<>'
 
         # fixes duplication of commands when using tab-completion
         export LANG=C.UTF-8
+
+        zle_highlight=('paste:none')
       '';
     };
   };
