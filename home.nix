@@ -7,6 +7,12 @@
   ...
 }: let
   unstable-packages = with pkgs.unstable; [
+    wl-clipboard
+    cliphist
+    figlet
+    toilet
+    lolcat
+    cmatrix
     bottom
     coreutils
     curl
